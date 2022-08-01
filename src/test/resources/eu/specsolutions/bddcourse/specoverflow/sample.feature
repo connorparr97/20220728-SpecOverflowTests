@@ -2,5 +2,6 @@ Feature: Sample
 
 Rule: Some rule
 
-  Scenario: Some scenario
-    When some action is performed using the browser
+  Scenario: Login button clicked
+    When user clicks the login button
+    Then browser loads login page
