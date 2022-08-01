@@ -25,4 +25,18 @@ public class SampleStepDefinitions {
     public void browser_loads_login_page() {
         assertEquals("Login - Spec Overflow", driver.getTitle());
     }
+
+
+    @When("user clicks the register button")
+    public void user_clicks_the_register_button() {
+        driver = new ChromeDriver();
+        driver.get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/");
+        WebElement registerHyperLink = driver.findElement(By.linkText("Register"));
+        registerHyperLink.click();
+    }
+    @Then("browser loads register page")
+    public void browser_loads_register_page() {
+        assertEquals("Register - Spec Overflow", driver.getTitle());
+    }
+
 }
