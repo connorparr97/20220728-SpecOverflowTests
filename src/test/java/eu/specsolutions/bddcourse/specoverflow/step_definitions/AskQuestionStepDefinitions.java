@@ -1,5 +1,6 @@
 package eu.specsolutions.bddcourse.specoverflow.step_definitions;
 
+import eu.specsolutions.bddcourse.specoverflow.page_objects.BrowserStackLoginPage;
 import eu.specsolutions.bddcourse.specoverflow.support.BrowserContext;
 import eu.specsolutions.bddcourse.specoverflow.support.BrowserHooks;
 import io.cucumber.java.en.Then;
@@ -52,10 +53,8 @@ public class AskQuestionStepDefinitions {
             WebElement loginHyperlink = browserContext.getDriver().findElement(By.linkText("Login"));
             loginHyperlink.click();
             browserContext.WaitForElementsLoad(1000);
-            browserContext.getDriver().findElement(By.id("Name")).sendKeys("Marvin");
-            browserContext.getDriver().findElement(By.id("Password")).sendKeys("1234");
-            WebElement loginButton = browserContext.getDriver().findElement(By.id("LoginButton"));
-            loginButton.click();
+            BrowserStackLoginPage loginPage = new BrowserStackLoginPage(browserContext);
+            loginPage.Login("Marvin","1234");
             browserContext.WaitForElementsLoad(1000);
             WebElement askHyperLink = browserContext.getDriver().findElement(By.linkText("Ask Question"));
             askHyperLink.click();
