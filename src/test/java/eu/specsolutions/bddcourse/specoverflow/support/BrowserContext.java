@@ -2,6 +2,7 @@ package eu.specsolutions.bddcourse.specoverflow.support;
 
 import io.cucumber.spring.ScenarioScope;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -65,6 +66,4 @@ public class BrowserContext {
             e.printStackTrace();
         }
     }
-
-
 }
