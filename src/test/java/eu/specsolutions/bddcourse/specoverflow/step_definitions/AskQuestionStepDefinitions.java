@@ -8,6 +8,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,14 +21,16 @@ public class AskQuestionStepDefinitions {
     BrowserStackAskQuestionPage askQuestionPage;
     BrowserStackLoginPage loginPage;
 
+    private String questionTitle = "Test";
+    private String questionBody = "Test";
+
     @When("user submits question not logged in")
     public void user_submits_question_not_logged_in() {
         browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         askQuestionPage.SubmitQuestion();
-        browserContext.WaitForElementsLoad(1000);
+        askQuestionPage.WaitForError();
         errorMessage = askQuestionPage.ReturnErrorMessage();
-
         //userinfo seems to be set too "anonymous" for non-signed in users
         //if logged in as ANY user then userinfo is set to "logged in as"
         //therefore userinfo element is fine to deduce whether user is logged in?
@@ -36,35 +40,54 @@ public class AskQuestionStepDefinitions {
         assertEquals("Not logged in", errorMessage);
     }
 
-    @When("user submits question without anything in title or body")
-    public void user_submits_question_without_anything_in_title_or_body() {
+    @When("user submits question without anything in title and body")
+    public void user_submits_question_without_anything_in_title_and_body() {
         browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         loginPage = new BrowserStackLoginPage(browserContext);
-
-        if(askQuestionPage.FetchUsername().contains("anonymous"))
-        {
-            //USER NOT LOGGED IN
-            askQuestionPage.ClickLoginPage();
-            browserContext.WaitForElementsLoad(1000);
-            loginPage.Login("Marvin","1234");
-            browserContext.WaitForElementsLoad(1000);
-            loginPage.ClickAskQuestionHyperlink();
-            askQuestionPage.SubmitQuestion();
-            browserContext.WaitForElementsLoad(1000);
-            errorMessage = askQuestionPage.ReturnErrorMessage();
-        }
-        else
-        {
-            //USER LOGGED IN
-            askQuestionPage.SubmitQuestion();
-            browserContext.WaitForElementsLoad(1000);
-            errorMessage = askQuestionPage.ReturnErrorMessage();
-        }
+        CheckAndLogUserIn();
+        loginPage.ClickAskQuestionHyperlink();
+        askQuestionPage.SubmitQuestion();
+        askQuestionPage.WaitForError();
+        errorMessage = askQuestionPage.ReturnErrorMessage();
     }
     @Then("page prompts user with message title and body cannot be empty")
     public void page_prompts_user_with_message_title_and_body_cannot_be_empty() {
         assertEquals("Title and Body cannot be empty", errorMessage);
+    }
+
+    @When("user submits question with characters in body and title")
+    public void user_submits_question_with_characters_in_body_and_title() {
+        browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
+        askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
+        loginPage = new BrowserStackLoginPage(browserContext);
+        CheckAndLogUserIn();
+        loginPage.ClickAskQuestionHyperlink();
+        askQuestionPage.EnterTitle(questionTitle);
+        askQuestionPage.EnterBody(questionBody);
+        askQuestionPage.SubmitQuestion();
+    }
+    @Then("user question should be posted to website")
+    public void user_question_should_be_posted_to_website() {
+        WebElement x = new WebDriverWait(browserContext.getDriver(),10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("QuestionDetails")));
+        assertEquals(questionTitle,browserContext.getDriver().findElement(By.id("QuestionTitle")).getText());
+    }
+
+    //HELPER METHOD
+    public void CheckAndLogUserIn()
+    {
+        if(askQuestionPage.FetchUsername().contains("anonymous"))
+        {
+            //USER NOT LOGGED IN
+            askQuestionPage.ClickLoginPage();
+            loginPage.Login("Marvin","1234");
+            browserContext.WaitForElementsLoad(100);
+            //after this method is executed, unless there is a wait it looks like the test is terminated and refuses
+            //to navigate back to the askQuestion page, however with the wait code, it can go back to the
+            //askQuestion page and finish the test?? having difficulty implementing the correct DriverWait
+            //to achieve this as I have no idea what to check for
+        }
     }
 
 

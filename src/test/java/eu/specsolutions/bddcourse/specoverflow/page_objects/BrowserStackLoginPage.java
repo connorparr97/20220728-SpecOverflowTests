@@ -43,4 +43,5 @@ public class BrowserStackLoginPage {
     public void ClickAskQuestionHyperlink() {
         browserContext.getDriver().findElement(askHyperlink).click();
     }
+
 }
