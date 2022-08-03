@@ -28,3 +28,11 @@ Rule: The browser must load the ask question page when the ask question button i
   Scenario: Ask question button clicked
     When user clicks ask question button
     Then browser loads ask question page
+
+Rule: The browser must log out user when logout button is pressed for a signed in user
+
+  Scenario: Logout button pressed
+    When user clicks logout button
+    Then browser logs user out
+
+

@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HyperlinkStepDefinitions {
+public class HyperlinkStepDefinitions extends BaseStepDefinitions {
     @Autowired
     private BrowserContext browserContext;
 
@@ -68,5 +68,15 @@ public class HyperlinkStepDefinitions {
     public void browser_loads_ask_question_page() {
         assertEquals("Ask a Question - Spec Overflow", browserContext.getDriver().getTitle());
     }
+
+    @When("user clicks logout button")
+    public void user_clicks_logout_button() {
+
+    }
+    @Then("browser logs user out")
+    public void browser_logs_user_out() {
+
+    }
+
 
 }
