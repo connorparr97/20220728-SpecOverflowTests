@@ -1,4 +1,9 @@
-Feature: Sample
+Feature: Hyperlink Testing
+
+Rule:  The browser must load the home page when the home button is clicked
+  Scenario: Home button clicked
+  When user clicks the home button
+  Then browser loads home page
 
 Rule: The browser must load the login page when the login button is clicked
 

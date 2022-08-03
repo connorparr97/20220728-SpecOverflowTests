@@ -56,4 +56,15 @@ public class BrowserContext {
             e.printStackTrace();
         }
     }
+
+    public void WaitForElementsLoad(int time)
+    {
+        try{
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
