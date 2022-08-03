@@ -12,6 +12,8 @@ public class BrowserStackLoginPage {
     By passwordField = By.id("Password");
     By loginButton = By.id("LoginButton");
 
+    By askHyperlink = By.linkText("Ask Question");
+
     public BrowserStackLoginPage(BrowserContext browserContext) {
         this.browserContext = browserContext;
     }
@@ -36,5 +38,9 @@ public class BrowserStackLoginPage {
     public void ClickLogin()
     {
         browserContext.getDriver().findElement(loginButton).click();
+    }
+
+    public void ClickAskQuestionHyperlink() {
+        browserContext.getDriver().findElement(askHyperlink).click();
     }
 }
