@@ -26,7 +26,7 @@ public class AskQuestionStepDefinitions {
 
     @When("user submits question not logged in")
     public void user_submits_question_not_logged_in() {
-        browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
+        browserContext.getDriver().get(browserContext.getBaseUrl() + "Ask");
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         askQuestionPage.SubmitQuestion();
         askQuestionPage.WaitForError();
@@ -42,7 +42,7 @@ public class AskQuestionStepDefinitions {
 
     @When("user submits question without anything in title and body")
     public void user_submits_question_without_anything_in_title_and_body() {
-        browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
+        browserContext.getDriver().get(browserContext.getBaseUrl() + "Ask");
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         loginPage = new BrowserStackLoginPage(browserContext);
         CheckAndLogUserIn();
@@ -58,7 +58,7 @@ public class AskQuestionStepDefinitions {
 
     @When("user submits question with characters in body and title")
     public void user_submits_question_with_characters_in_body_and_title() {
-        browserContext.getDriver().get("https://specflowmasterclassspecoverflowweb20220706204956.azurewebsites.net/Ask");
+        browserContext.getDriver().get(browserContext.getBaseUrl() + "Ask");
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         loginPage = new BrowserStackLoginPage(browserContext);
         CheckAndLogUserIn();

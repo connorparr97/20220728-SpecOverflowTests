@@ -17,3 +17,14 @@ Rule: The browser must load the register page when the register button is clicke
     When user clicks the register button
     Then browser loads register page
 
+Rule: The browser must load the questions page when the questions button is clicked
+
+  Scenario: Questions button clicked
+    When user clicks the questions button
+    Then browser loads questions page
+
+Rule: The browser must load the ask question page when the ask question button is clicked
+
+  Scenario: Ask question button clicked
+    When user clicks ask question button
+    Then browser loads ask question page
