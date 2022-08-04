@@ -46,6 +46,7 @@ public class AskQuestionStepDefinitions extends BaseStepDefinitions {
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         loginPage = new BrowserStackLoginPage(browserContext);
         CheckAndLogUserIn();
+        browserContext.getDriver().navigate().back();
         loginPage.ClickAskQuestionHyperlink();
         askQuestionPage.SubmitQuestion();
         askQuestionPage.WaitForError();
@@ -62,6 +63,7 @@ public class AskQuestionStepDefinitions extends BaseStepDefinitions {
         askQuestionPage = new BrowserStackAskQuestionPage(browserContext);
         loginPage = new BrowserStackLoginPage(browserContext);
         CheckAndLogUserIn();
+        browserContext.getDriver().navigate().back();
         loginPage.ClickAskQuestionHyperlink();
         askQuestionPage.EnterTitle(questionTitle);
         askQuestionPage.EnterBody(questionBody);
@@ -69,7 +71,7 @@ public class AskQuestionStepDefinitions extends BaseStepDefinitions {
     }
     @Then("user question should be posted to website")
     public void user_question_should_be_posted_to_website() {
-        WebElement x = new WebDriverWait(browserContext.getDriver(),10)
+       new WebDriverWait(browserContext.getDriver(),10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("QuestionDetails")));
         assertEquals(questionTitle,browserContext.getDriver().findElement(By.id("QuestionTitle")).getText());
     }

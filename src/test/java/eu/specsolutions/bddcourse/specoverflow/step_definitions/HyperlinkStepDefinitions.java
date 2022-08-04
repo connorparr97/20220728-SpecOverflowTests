@@ -75,14 +75,14 @@ public class HyperlinkStepDefinitions extends BaseStepDefinitions {
     public void user_clicks_logout_button() {
         browserContext.getDriver().get(browserContext.getBaseUrl());
         CheckAndLogUserIn();
+        new WebDriverWait(browserContext.getDriver(),10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Logout")));
         WebElement logOutHyperlink = browserContext.getDriver().findElement(By.linkText("Logout"));
         logOutHyperlink.click();
-
-
     }
     @Then("browser logs user out")
     public void browser_logs_user_out() {
-        WebElement x = new WebDriverWait(browserContext.getDriver(),10)
+        new WebDriverWait(browserContext.getDriver(),10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("UserInfo")));
         assertEquals("anonymous",browserContext.getDriver().findElement(By.id("UserInfo")).getText());
     }

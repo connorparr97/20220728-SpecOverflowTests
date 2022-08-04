@@ -33,7 +33,6 @@ public class BrowserContext {
         ChromeOptions chromeOptions = new ChromeOptions();
         driver = new ChromeDriver(chromeOptions);
     }
-
     // invoked from BrowserHooks
     public void stopBrowser() {
         if (driver != null){
@@ -41,27 +40,16 @@ public class BrowserContext {
             driver = null;
         }
     }
-
     public void takeScreenshot(String fileName) throws IOException {
         File targetFile = new File("./target/test-output/" + fileName);
         File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(screenshotFile, targetFile);
         System.out.printf("The screenshot was saved to: %s%n", targetFile.getAbsolutePath());
     }
-
     // use it only for debugging!
     public void pauseForDebug(){
         try {
             Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void WaitForElementsLoad(int time)
-    {
-        try{
-            Thread.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
