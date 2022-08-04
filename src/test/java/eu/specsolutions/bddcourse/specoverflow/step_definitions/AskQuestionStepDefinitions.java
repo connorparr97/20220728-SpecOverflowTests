@@ -73,9 +73,4 @@ public class AskQuestionStepDefinitions extends BaseStepDefinitions {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("QuestionDetails")));
         assertEquals(questionTitle,browserContext.getDriver().findElement(By.id("QuestionTitle")).getText());
     }
-
-    //HELPER METHOD
-
-
-
 }

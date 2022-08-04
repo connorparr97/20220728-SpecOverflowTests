@@ -7,6 +7,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -71,11 +73,18 @@ public class HyperlinkStepDefinitions extends BaseStepDefinitions {
 
     @When("user clicks logout button")
     public void user_clicks_logout_button() {
+        browserContext.getDriver().get(browserContext.getBaseUrl());
+        CheckAndLogUserIn();
+        WebElement logOutHyperlink = browserContext.getDriver().findElement(By.linkText("Logout"));
+        logOutHyperlink.click();
+
 
     }
     @Then("browser logs user out")
     public void browser_logs_user_out() {
-
+        WebElement x = new WebDriverWait(browserContext.getDriver(),10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("UserInfo")));
+        assertEquals("anonymous",browserContext.getDriver().findElement(By.id("UserInfo")).getText());
     }
 
 
